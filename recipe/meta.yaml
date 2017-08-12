@@ -57,6 +57,7 @@ about:
     facilities for the documentation of Python projects, but C/C++ is already supported
     as well, and it is planned to add special support for other languages as well.
   doc_url: http://www.sphinx-doc.org/en/stable/contents.html
+  doc_source_url: https://github.com/sphinx-doc/sphinx/blob/master/doc/contents.rst
   dev_url: https://github.com/sphinx-doc/sphinx
 
 extra:
