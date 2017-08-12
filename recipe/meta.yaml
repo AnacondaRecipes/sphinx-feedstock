@@ -18,7 +18,7 @@ build:
     - sphinx-autogen = sphinx.ext.autosummary.generate:main
 
 requirements:
-  build:
+  host:
     - python
     - pip
   run:
