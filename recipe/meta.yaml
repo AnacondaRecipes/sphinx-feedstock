@@ -43,7 +43,14 @@ requirements:
 
 test:
   commands:
+    - sphinx-build -h
     - sphinx-quickstart --version
+    - sphinx-quickstart -h
+    - sphinx-apidoc -h
+    - sphinx-autogen -h
+  imports:
+    - sphinx
+    - sphinx.pycode
 
 about:
   home: http://www.sphinx-doc.org
