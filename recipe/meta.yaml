@@ -52,13 +52,14 @@ test:
     - sphinx.builders
   requires:
     - pip
+    - colorama >=0.3.5   # [win]
   commands:
     - pip check
     - sphinx-quickstart --version
 
 about:
   home: http://www.sphinx-doc.org
-  license: BSD-2-Clause
+  license: BSD-2-Clause AND MIT
   license_file: LICENSE
   license_family: BSD
   summary: Sphinx is a tool that makes it easy to create intelligent and beautiful documentation
