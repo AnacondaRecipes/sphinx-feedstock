@@ -1,4 +1,4 @@
-{% set version = "4.2.0" %}
+{% set version = "4.3.2" %}
 
 package:
   name: sphinx
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/S/Sphinx/Sphinx-{{ version }}.tar.gz
-  sha256: 94078db9184491e15bce0a56d9186e0aec95f16ac20b12d00e06d4e36f1058a6
+  sha256: 0a8836751a68306b3fe97ecbe44db786f8479c3bf4b80e3a7f5c838657b4698c
 
 build:
   number: 1
