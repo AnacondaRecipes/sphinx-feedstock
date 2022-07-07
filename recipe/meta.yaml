@@ -55,7 +55,7 @@ test:
     - pip
   commands:
     - pip check || true  # [not win]
-    - pip check || 1  # [win]
+    - pip check || exit 0  # [win]
     - sphinx-build --help
     - sphinx-quickstart --help
     - sphinx-apidoc --help
