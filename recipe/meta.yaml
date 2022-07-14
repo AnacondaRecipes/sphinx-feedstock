@@ -1,5 +1,5 @@
 {% set name = "sphinx" %}
-{% set version = "4.4.0" %}
+{% set version = "5.0.2" %}
 
 package:
   name: {{ name|lower }}
@@ -7,11 +7,11 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/Sphinx-{{ version }}.tar.gz
-  sha256: 6caad9786055cb1fa22b4a365c1775816b876f91966481765d7d50e9f0dd35cc
+  sha256: b18e978ea7565720f26019c702cd85c84376e948370f1cd43d60265010e1c7b0
 
 build:
   number: 0
-  noarch: python
+  skip: True  # [py<36]
   script: {{ PYTHON }} -m pip install . -vv
   entry_points:
     - sphinx-build = sphinx.cmd.build:main
@@ -27,12 +27,12 @@ requirements:
     - wheel
     - babel
   run:
-    - python >=3.6
+    - python
     - alabaster >=0.7,<0.8
     - babel >=1.3
-    - docutils >=0.14,<0.18
+    - docutils >=0.14,<0.19
     - imagesize
-    - importlib-metadata >=4.4
+    - importlib-metadata >=4.4  # [py<310]
     - jinja2 >=2.3
     - packaging
     - pygments >=2.0
@@ -53,9 +53,9 @@ test:
     - sphinx.builders
   requires:
     - pip
-    - python <3.10
   commands:
-    - pip check
+    - pip check || true  # [not win]
+    - pip check || exit 0  # [win]
     - sphinx-build --help
     - sphinx-quickstart --help
     - sphinx-apidoc --help
@@ -73,7 +73,7 @@ about:
     It was originally created for the new Python documentation, and it has excellent
     facilities for the documentation of Python projects, but C/C++ is already supported
     as well, and it is planned to add special support for other languages as well.
-  doc_url: https://www.sphinx-doc.org/en/stable/contents.html
+  doc_url: https://www.sphinx-doc.org/en/master/contents.html
   dev_url: https://github.com/sphinx-doc/sphinx
 
 extra:
