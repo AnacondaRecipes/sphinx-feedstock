@@ -34,7 +34,7 @@ requirements:
     - jinja2 >=3.0
     - packaging >=21
     - pygments >=2.14
-    - requests >=2.5.0
+    - requests >=2.25.0
     - snowballstemmer >=2.0
     - sphinxcontrib-applehelp
     - sphinxcontrib-devhelp
