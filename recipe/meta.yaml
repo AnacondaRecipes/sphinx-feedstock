@@ -56,10 +56,13 @@ test:
     - pip
     - pytest >=6.0
     - defusedxml >=0.7.1
+    - {{ compiler('c') }}  # [linux or win]
     - cython >=3.0
     - setuptools >=67.0
   commands:
     - pip check
+    # sphinx-build fails if LC_ALL is empty, see the similar issue https://github.com/sphinx-doc/sphinx/pull/5829
+    - export LC_ALL=en_US.UTF-8  # [osx]
     - sphinx-build --help
     - sphinx-quickstart --help
     - sphinx-apidoc --help
