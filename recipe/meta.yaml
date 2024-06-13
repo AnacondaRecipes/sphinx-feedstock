@@ -1,18 +1,18 @@
 {% set name = "sphinx" %}
-{% set version = "5.0.2" %}
+{% set version = "7.3.7" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/Sphinx-{{ version }}.tar.gz
-  sha256: b18e978ea7565720f26019c702cd85c84376e948370f1cd43d60265010e1c7b0
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: a4a7db75ed37531c05002d56ed6948d4c42f473a36f46e1382b0bd76ca9627bc
 
 build:
   number: 0
-  skip: True  # [py<36]
-  script: {{ PYTHON }} -m pip install . -vv
+  skip: True  # [py<39]
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
   entry_points:
     - sphinx-build = sphinx.cmd.build:main
     - sphinx-quickstart = sphinx.cmd.quickstart:main
@@ -23,48 +23,56 @@ requirements:
   host:
     - python
     - pip
-    - setuptools
-    - wheel
-    - babel
+    - flit-core >=3.7
   run:
     - python
-    - alabaster >=0.7,<0.8
-    - babel >=1.3
-    - docutils >=0.14,<0.19
-    - imagesize
-    - importlib-metadata >=4.4  # [py<310]
-    - jinja2 >=2.3
-    - packaging
-    - pygments >=2.0
-    - requests >=2.5.0
-    - snowballstemmer >=1.1
+    - alabaster >=0.7.14,<0.8
+    - babel >=2.9
+    - docutils >=0.18.1,<0.22
+    - imagesize >=1.3
+    - importlib-metadata >=4.8  # [py<310]
+    - jinja2 >=3.0
+    - packaging >=21
+    - pygments >=2.14
+    - requests >=2.25.0
+    - snowballstemmer >=2.0
     - sphinxcontrib-applehelp
     - sphinxcontrib-devhelp
     - sphinxcontrib-htmlhelp >=2.0.0
     - sphinxcontrib-jsmath
     - sphinxcontrib-qthelp
-    - sphinxcontrib-serializinghtml >=1.1.5
+    - sphinxcontrib-serializinghtml >=1.1.9
+    - tomli >=2  # [py<311]
     # only _strictly_ a windows dependency, but appeases `pip check`
-    - colorama >=0.3.5
+    - colorama >=0.4.5  # [win]
 
 test:
   imports:
     - sphinx
     - sphinx.builders
+  source_files:
+    - tests
   requires:
     - pip
+    - pytest >=6.0
+    - defusedxml >=0.7.1
+    - {{ compiler('c') }}  # [linux or win]
+    - cython >=3.0
+    - setuptools >=67.0
   commands:
-    - pip check || true  # [not win]
-    - pip check || exit 0  # [win]
+    - pip check
+    # sphinx-build fails if LC_ALL is empty, see the similar issue https://github.com/sphinx-doc/sphinx/pull/5829
+    - export LC_ALL=en_US.UTF-8  # [osx]
     - sphinx-build --help
     - sphinx-quickstart --help
     - sphinx-apidoc --help
     - sphinx-autogen --help
+    - pytest -v
 
 about:
   home: https://www.sphinx-doc.org
   license: BSD-2-Clause
-  license_file: LICENSE
+  license_file: LICENSE.rst
   license_family: BSD
   summary: Sphinx is a tool that makes it easy to create intelligent and beautiful documentation
   description: |
