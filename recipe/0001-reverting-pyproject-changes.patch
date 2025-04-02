@@ -1,0 +1,28 @@
+From 8a3bbe1b431dbb305227b0035465a803b7b69ea4 Mon Sep 17 00:00:00 2001
+From: Udo-Peter Steyer <ous8292@gmail.com>
+Date: Wed, 2 Apr 2025 13:02:38 -0500
+Subject: [PATCH] reverting pyproject-changes
+
+---
+ pyproject.toml | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
+
+diff --git a/pyproject.toml b/pyproject.toml
+index c4b1b6d..d5d98a2 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -13,10 +13,7 @@ urls.Documentation = "https://www.sphinx-doc.org/"
+ urls.Download = "https://pypi.org/project/Sphinx/"
+ urls.Homepage = "https://www.sphinx-doc.org/"
+ urls."Issue tracker" = "https://github.com/sphinx-doc/sphinx/issues"
+-license = "BSD-2-Clause"
+-license-files = [
+-    "LICENSE.rst",
+-]
++license.text = "BSD-2-Clause"
+ requires-python = ">=3.11"
+ 
+ # Classifiers list: https://pypi.org/classifiers/
+-- 
+2.39.5 (Apple Git-154)
+
