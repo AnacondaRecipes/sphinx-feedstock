@@ -31,25 +31,26 @@ requirements:
     - flit-core >=3.7
   run:
     - python
-    - alabaster >=0.7.14,<0.8
-    - babel >=2.9
-    - docutils >=0.18.1,<0.22
+    - alabaster >=0.7.14
+    - babel >=2.13
+    - docutils >=0.20,<0.22
     - imagesize >=1.3
     - importlib-metadata >=4.8  # [py<310]
-    - jinja2 >=3.0
-    - packaging >=21
-    - pygments >=2.14
-    - requests >=2.25.0
-    - snowballstemmer >=2.0
-    - sphinxcontrib-applehelp
-    - sphinxcontrib-devhelp
-    - sphinxcontrib-htmlhelp >=2.0.0
-    - sphinxcontrib-jsmath
-    - sphinxcontrib-qthelp
+    - jinja2 >=3.1
+    - packaging >=23.0
+    - pygments >=2.17
+    - requests >=2.30.0
+    - snowballstemmer >=2.2
+    - sphinxcontrib-applehelp >=1.0.7
+    - sphinxcontrib-devhelp >=1.0.6
+    - sphinxcontrib-htmlhelp >=2.0.6
+    - sphinxcontrib-jsmath >=1.0.1
+    - sphinxcontrib-qthelp >=1.0.6
     - sphinxcontrib-serializinghtml >=1.1.9
     - tomli >=2  # [py<311]
     # only _strictly_ a windows dependency, but appeases `pip check`
-    - colorama >=0.4.5  # [win]
+    - colorama >=0.4.6  # [win]
+    - roman-numerals-py >=1.0.0
 
 test:
   imports:
