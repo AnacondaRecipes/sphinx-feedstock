@@ -65,6 +65,7 @@ test:
     - {{ compiler('c') }}  # [linux or win]
     - cython >=3.0
     - setuptools >=67.0
+    - typing-extensions
   commands:
     - pip check
     # sphinx-build fails if LC_ALL is empty, see the similar issue https://github.com/sphinx-doc/sphinx/pull/5829
@@ -73,7 +74,7 @@ test:
     - sphinx-quickstart --help
     - sphinx-apidoc --help
     - sphinx-autogen --help
-    #- pytest -v -k "not test_autodoc_type_aliases"
+    - pytest -v -k "not test_autodoc_type_aliases"
 
 about:
   home: https://www.sphinx-doc.org
