@@ -73,7 +73,7 @@ test:
     - sphinx-quickstart --help
     - sphinx-apidoc --help
     - sphinx-autogen --help
-    - pytest -v -k "not test_autodoc_type_aliases or test_ModuleAnalyzer_for_module"
+    - pytest -v -k "not (test_autodoc_type_aliases or test_ModuleAnalyzer_for_module)"
 
 about:
   home: https://www.sphinx-doc.org
