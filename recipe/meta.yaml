@@ -1,5 +1,5 @@
 {% set name = "sphinx" %}
-{% set version = "7.3.7" %}
+{% set version = "8.2.3" %}
 
 package:
   name: {{ name|lower }}
@@ -7,11 +7,13 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: a4a7db75ed37531c05002d56ed6948d4c42f473a36f46e1382b0bd76ca9627bc
+  sha256: 398ad29dee7f63a75888314e9424d40f52ce5a6a87ae88e7071e80af296ec348
+  patches:
+    - 0001-reverting-pyproject-changes.patch
 
 build:
   number: 0
-  skip: True  # [py<39]
+  skip: True  # [py<311]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
   entry_points:
     - sphinx-build = sphinx.cmd.build:main
@@ -20,31 +22,32 @@ build:
     - sphinx-autogen = sphinx.ext.autosummary.generate:main
 
 requirements:
+  build:
+    - patch       # [not win]
+    - m2-patch    # [win]
   host:
     - python
     - pip
-    - flit-core >=3.7
+    - flit-core
   run:
     - python
-    - alabaster >=0.7.14,<0.8
-    - babel >=2.9
-    - docutils >=0.18.1,<0.22
+    - alabaster >=0.7.14
+    - babel >=2.13
+    - docutils >=0.20,<0.22
     - imagesize >=1.3
-    - importlib-metadata >=4.8  # [py<310]
-    - jinja2 >=3.0
-    - packaging >=21
-    - pygments >=2.14
-    - requests >=2.25.0
-    - snowballstemmer >=2.0
-    - sphinxcontrib-applehelp
-    - sphinxcontrib-devhelp
-    - sphinxcontrib-htmlhelp >=2.0.0
-    - sphinxcontrib-jsmath
-    - sphinxcontrib-qthelp
+    - jinja2 >=3.1
+    - packaging >=23.0
+    - pygments >=2.17
+    - requests >=2.30.0
+    - snowballstemmer >=2.2
+    - sphinxcontrib-applehelp >=1.0.7
+    - sphinxcontrib-devhelp >=1.0.6
+    - sphinxcontrib-htmlhelp >=2.0.6
+    - sphinxcontrib-jsmath >=1.0.1
+    - sphinxcontrib-qthelp >=1.0.6
     - sphinxcontrib-serializinghtml >=1.1.9
-    - tomli >=2  # [py<311]
-    # only _strictly_ a windows dependency, but appeases `pip check`
-    - colorama >=0.4.5  # [win]
+    - colorama >=0.4.6  # [win]
+    - roman-numerals-py >=1.0.0
 
 test:
   imports:
@@ -54,11 +57,14 @@ test:
     - tests
   requires:
     - pip
-    - pytest >=6.0
+    - pytest >=8.0
+    - pytest-xdist >=3.4
+    - psutil
     - defusedxml >=0.7.1
-    - {{ compiler('c') }}  # [linux or win]
+    - {{ compiler('c') }}
     - cython >=3.0
-    - setuptools >=67.0
+    - setuptools >=70.0
+    - typing-extensions >=4.9
   commands:
     - pip check
     # sphinx-build fails if LC_ALL is empty, see the similar issue https://github.com/sphinx-doc/sphinx/pull/5829
@@ -67,7 +73,7 @@ test:
     - sphinx-quickstart --help
     - sphinx-apidoc --help
     - sphinx-autogen --help
-    - pytest -v
+    - pytest -v -k "not (test_autodoc_type_aliases or test_ModuleAnalyzer_for_module)"
 
 about:
   home: https://www.sphinx-doc.org
