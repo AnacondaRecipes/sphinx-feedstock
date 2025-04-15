@@ -28,7 +28,7 @@ requirements:
   host:
     - python
     - pip
-    - flit-core >=3.11
+    - flit-core
   run:
     - python
     - alabaster >=0.7.14
@@ -57,7 +57,9 @@ test:
     - tests
   requires:
     - pip
-    - pytest >=6.0
+    - pytest >=8.0
+    - pytest-xdist >=3.4
+    - psutil
     - defusedxml >=0.7.1
     - {{ compiler('c') }}
     - cython >=3.0
