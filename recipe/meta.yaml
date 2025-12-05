@@ -75,7 +75,7 @@ test:
     # Actual:   C:\Users\...\Release\Users\...\Release\Users\...\temp.win-amd64-cpython-311\Release\cython.cp311-win_amd64.lib
     # The path indicates distutils/pyximport is incorrectly concatenating absolute paths as relative paths when building the Cython test module, creating an invalid deeply-nested directory structure that Windows cannot handle.
     # We need to skip the test_cython test on Windows.
-    - pytest -v -k "not (test_autodoc_type_aliases or test_ModuleAnalyzer_for_module or test_cython))"  # [py<314]
+    - pytest -v -k "not (test_autodoc_type_aliases or test_ModuleAnalyzer_for_module or test_cython)"  # [py<314]
     # The test_is_invalid_builtin_class test checks if the builtin class is invalid:
     # AssertionError: assert dict_keys([('...th', 'Path')]) == {('_contextva...'Union'), ...}
     # The issue seems to be a full diff of the dict_keys objects
