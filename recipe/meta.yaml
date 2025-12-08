@@ -95,7 +95,7 @@ about:
     It was originally created for the new Python documentation, and it has excellent
     facilities for the documentation of Python projects, but C/C++ is already supported
     as well, and it is planned to add special support for other languages as well.
-  doc_url: https://www.sphinx-doc.org/en/master/contents.html
+  doc_url: https://www.sphinx-doc.org
   dev_url: https://github.com/sphinx-doc/sphinx
 
 extra:
