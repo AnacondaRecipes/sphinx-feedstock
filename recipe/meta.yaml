@@ -1,5 +1,5 @@
 {% set name = "sphinx" %}
-{% set version = "8.2.3" %}
+{% set version = "9.0.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,12 +7,12 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 398ad29dee7f63a75888314e9424d40f52ce5a6a87ae88e7071e80af296ec348
+  sha256: dc75216d69e00f170cb236eee17e66bcd89c4c2b5fe938ca8532fd7fe5abb23f
   patches:
     - 0001-reverting-pyproject-changes.patch
 
 build:
-  number: 1
+  number: 0
   skip: true  # [py<311]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
   entry_points:
