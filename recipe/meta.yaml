@@ -13,7 +13,7 @@ source:
 
 build:
   number: 0
-  skip: true  # [py<312]
+  skip: true  # [py<311]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
   entry_points:
     - sphinx-build = sphinx.cmd.build:main
