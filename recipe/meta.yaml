@@ -44,6 +44,7 @@ requirements:
     - sphinxcontrib-qthelp >=1.0.6
     - sphinxcontrib-serializinghtml >=1.1.9
     - colorama >=0.4.6  # [win]
+    # from 9.0.0, switched to 'roman-numerals' instead (rename). keeping 'roman-numerals-py' for the package.
     - roman-numerals-py >=1.0.0
 
 test:
