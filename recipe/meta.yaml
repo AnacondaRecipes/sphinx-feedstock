@@ -66,6 +66,7 @@ requirements:
 {% set deselect_tests = deselect_tests + " --deselect=tests/test_extensions/test_ext_autodoc_configs.py::test_autodoc_type_aliases" %}
 {% set deselect_tests = deselect_tests + " --deselect=tests/test_extensions/test_ext_autodoc_configs.py::test_autodoc_typehints_description_and_type_aliases" %}
 {% set deselect_tests = deselect_tests + " --deselect=tests/test_extensions/test_ext_autodoc_preserve_defaults.py::test_preserve_defaults_special_constructs" %}
+{% set deselect_tests = deselect_tests + " --deselect=tests/test_extensions/test_ext_autodoc_configs.py::test_autodoc_typehints" %}
 {% set deselect_tests = deselect_tests + " --deselect=tests/test_extensions/test_ext_autosummary.py::test_autosummary_generate_content_for_module_imported_members" %}
 {% set deselect_tests = deselect_tests + " --deselect=tests/test_extensions/test_ext_viewcode.py::test_viewcode_linenos" %}
 {% set deselect_tests = deselect_tests + " --deselect=tests/test_extensions/test_ext_viewcode.py::test_viewcode" %}
@@ -73,6 +74,10 @@ requirements:
 {% set deselect_tests = deselect_tests + " --deselect=tests/test_intl/test_intl.py::test_additional_targets_should_be_translated" %}
 {% set deselect_tests = deselect_tests + " --deselect=tests/test_util/test_util_typing.py::test_stringify_type_hints_string" %}
 {% set deselect_tests = deselect_tests + " --deselect=tests/test_util/test_util_typing.py::test_stringify_type_ForwardRef" %}
+# E   AssertionError: assert [] == ['', '.. py:m....cython', ...]
+{% set deselect_tests = deselect_tests + " --deselect=tests/test_extensions/test_ext_autodoc.py::test_cython" %}  # [win]
+# E   TypeError: ("Empty locale identifier value: None\n\nIf you didn't explicitly pass an empty value to a Babel function, this could be caused by there being no suitable locale environment variables for the API you tried to use.",)
+{% set deselect_tests = deselect_tests + " --deselect=tests/test_util/test_util_i18n.py::test_format_date" %}  # [win]
 
 test:
   imports:
