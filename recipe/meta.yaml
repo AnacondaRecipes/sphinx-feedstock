@@ -26,6 +26,8 @@ requirements:
     - python
     - pip
     - flit-core >=3.12
+    # libarchive workaround for: https://github.com/conda/conda-build/issues/5729
+    - libarchive
   run:
     - python
     - alabaster >=0.7.14
