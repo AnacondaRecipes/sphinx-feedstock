@@ -52,7 +52,7 @@ test:
     - tests
   requires:
     - pip
-    - pytest >=8.0
+    - pytest >=9.0
     - pytest-xdist >=3.4
     - psutil
     - defusedxml >=0.7.1
