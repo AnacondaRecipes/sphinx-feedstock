@@ -1,5 +1,5 @@
 {% set name = "sphinx" %}
-{% set version = "9.0.0" %}
+{% set version = "9.1.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: dc75216d69e00f170cb236eee17e66bcd89c4c2b5fe938ca8532fd7fe5abb23f
+  sha256: 7741722357dd75f8190766926071fed3bdc211c74dd2d7d4df5404da95930ddb
   patches:
     - 0001-reverting-pyproject-changes.patch
 
