@@ -8,8 +8,6 @@ package:
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: 7741722357dd75f8190766926071fed3bdc211c74dd2d7d4df5404da95930ddb
-  #patches:
-  #  - 0001-reverting-pyproject-changes.patch
 
 build:
   number: 0
