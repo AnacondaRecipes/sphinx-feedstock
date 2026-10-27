@@ -79,19 +79,21 @@ test:
     # The test_is_invalid_builtin_class test checks if the builtin class is invalid:
     # AssertionError: assert dict_keys([('...th', 'Path')]) == {('_contextva...'Union'), ...}
     # The issue seems to be a full diff of the dict_keys objects
-    - pytest -vv -k "not (test_autodoc_type_aliases or test_ModuleAnalyzer_for_module or test_autodoc_special_members or test_autosummary_generate_content_for_module_imported_members or test_is_invalid_builtin_class)"  # [py==314]
-  #downstreams:
-  #  - sphinx-design
-  #  - sphinx_rtd_theme
-  #  - sphinxcontrib-images
-  #  - sphinxcontrib-jquery
-  #  - sphinxcontrib-websupport
-  #  - sphinxcontrib-youtube
-  #  - spyder
-  #  - pydata-sphinx-theme
-  #  - sphinx-book-theme
-  #  - sphinx-last-updated-by-git
-  #  - sphinx-sitemap
+    - pytest -vv -k "not (test_autodoc_type_aliases or test_ModuleAnalyzer_for_module or test_autodoc_special_members or test_autosummary_generate_content_for_module_imported_members or test_is_invalid_builtin_class)"  # [py==314 and not win]
+    # test_cython stays skipped on win for the pyximport /IMPLIB: path bug described above.
+    - pytest -vv -k "not (test_autodoc_type_aliases or test_ModuleAnalyzer_for_module or test_autodoc_special_members or test_autosummary_generate_content_for_module_imported_members or test_is_invalid_builtin_class or test_cython or test_duration_limit)"  # [py==314 and win]
+  downstreams:
+   - sphinx-design
+   - sphinx_rtd_theme
+   - sphinxcontrib-images
+   - sphinxcontrib-jquery
+   - sphinxcontrib-websupport
+   - sphinxcontrib-youtube
+   - spyder
+   - pydata-sphinx-theme
+   - sphinx-book-theme
+   - sphinx-last-updated-by-git
+   - sphinx-sitemap
 
 about:
   home: https://www.sphinx-doc.org
