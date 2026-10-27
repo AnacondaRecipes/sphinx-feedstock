@@ -1,5 +1,5 @@
 {% set name = "sphinx" %}
-{% set version = "9.1.0" %}
+{% set version = "9.2.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,11 +7,11 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 7741722357dd75f8190766926071fed3bdc211c74dd2d7d4df5404da95930ddb
+  sha256: 90470459f3cab15d9dfed146c71cf77694b0445df17b2e0e69059cb9f7fc9ee4
 
 build:
-  number: 1
-  skip: true  # [py<312]
+  number: 0
+  skip: true  # [py<313]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
   entry_points:
     - sphinx-build = sphinx.cmd.build:main
@@ -26,15 +26,15 @@ requirements:
     - flit-core >=3.12
   run:
     - python
-    - alabaster >=0.7.14
-    - babel >=2.13
-    - docutils >=0.21,<0.23
+    - alabaster >=1.0
+    - babel >=2.18
+    - docutils >=0.21,<0.24
     - imagesize >=1.3
     - jinja2 >=3.1
-    - packaging >=23.0
-    - pygments >=2.17
-    - requests >=2.30.0
-    - snowballstemmer >=2.2,<3.0
+    - packaging >=25.0
+    - pygments >=2.19
+    - requests >=2.32.5
+    - snowballstemmer >=3.0.1
     - sphinxcontrib-applehelp >=1.0.7
     - sphinxcontrib-devhelp >=1.0.6
     - sphinxcontrib-htmlhelp >=2.0.6
@@ -42,7 +42,7 @@ requirements:
     - sphinxcontrib-qthelp >=1.0.6
     - sphinxcontrib-serializinghtml >=1.1.9
     - colorama >=0.4.6  # [win]
-    - roman-numerals >=1.0.0
+    - roman-numerals >=3.0
 
 test:
   imports:
@@ -74,7 +74,7 @@ test:
     # Actual:   C:\Users\...\Release\Users\...\Release\Users\...\temp.win-amd64-cpython-311\Release\cython.cp311-win_amd64.lib
     # The path indicates distutils/pyximport is incorrectly concatenating absolute paths as relative paths when building the Cython test module, creating an invalid deeply-nested directory structure that Windows cannot handle.
     # We need to skip the test_cython test on Windows.
-    # Skip timing based test on windows (CI): test_duration_limit[0.0-True]. 
+    # Skip timing based test on windows (CI): test_duration_limit[0.0-True].
     - pytest -v -k "not (test_autodoc_type_aliases or test_ModuleAnalyzer_for_module or test_cython or test_duration_limit)"  # [py<314 and win]
     # The test_is_invalid_builtin_class test checks if the builtin class is invalid:
     # AssertionError: assert dict_keys([('...th', 'Path')]) == {('_contextva...'Union'), ...}
