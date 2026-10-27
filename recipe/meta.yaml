@@ -1,17 +1,17 @@
 {% set name = "sphinx" %}
-{% set version = "9.1.0" %}
+{% set version = "9.2.0" %}
 
 package:
-  name: {{ name|lower }}
+  name: {{ name }}
   version: {{ version }}
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 7741722357dd75f8190766926071fed3bdc211c74dd2d7d4df5404da95930ddb
+  sha256: 90470459f3cab15d9dfed146c71cf77694b0445df17b2e0e69059cb9f7fc9ee4
 
 build:
-  number: 1
-  skip: true  # [py<312]
+  number: 0
+  skip: true  # [py<313]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
   entry_points:
     - sphinx-build = sphinx.cmd.build:main
@@ -26,23 +26,23 @@ requirements:
     - flit-core >=3.12
   run:
     - python
-    - alabaster >=0.7.14
-    - babel >=2.13
-    - docutils >=0.21,<0.23
-    - imagesize >=1.3
-    - jinja2 >=3.1
-    - packaging >=23.0
-    - pygments >=2.17
-    - requests >=2.30.0
-    - snowballstemmer >=2.2,<3.0
     - sphinxcontrib-applehelp >=1.0.7
     - sphinxcontrib-devhelp >=1.0.6
     - sphinxcontrib-htmlhelp >=2.0.6
     - sphinxcontrib-jsmath >=1.0.1
     - sphinxcontrib-qthelp >=1.0.6
     - sphinxcontrib-serializinghtml >=1.1.9
+    - jinja2 >=3.1
+    - pygments >=2.19
+    - docutils >=0.21,<0.24
+    - snowballstemmer >=3.0.1
+    - babel >=2.18
+    - alabaster >=1.0
+    - imagesize >=1.3
+    - requests >=2.32.5
+    - roman-numerals >=3.0
+    - packaging >=25.0
     - colorama >=0.4.6  # [win]
-    - roman-numerals >=1.0.0
 
 test:
   imports:
@@ -52,12 +52,12 @@ test:
     - tests
   requires:
     - pip
+    - {{ stdlib('c') }}
+    - {{ compiler('c') }}
     - pytest >=9.0
     - pytest-xdist >=3.4
     - psutil
     - defusedxml >=0.7.1
-    - {{ stdlib('c') }}
-    - {{ compiler('c') }}
     - cython >=3.0
     - setuptools >=70.0
     - typing-extensions >=4.9
@@ -69,18 +69,20 @@ test:
     - sphinx-quickstart --help
     - sphinx-apidoc --help
     - sphinx-autogen --help
-    - pytest -v -k "not (test_autodoc_type_aliases or test_ModuleAnalyzer_for_module)"  # [py<314 and not win]
+    - pytest -vv -k "not (test_autodoc_type_aliases or test_ModuleAnalyzer_for_module)"  # [py<314 and not win]
     # The test_cython test uses pyximport to dynamically compile a Cython module during test execution. On Windows, the distutils linker receives a malformed /IMPLIB: path where directory segments are duplicated:
     # Actual:   C:\Users\...\Release\Users\...\Release\Users\...\temp.win-amd64-cpython-311\Release\cython.cp311-win_amd64.lib
     # The path indicates distutils/pyximport is incorrectly concatenating absolute paths as relative paths when building the Cython test module, creating an invalid deeply-nested directory structure that Windows cannot handle.
     # We need to skip the test_cython test on Windows.
-    # Skip timing based test on windows (CI): test_duration_limit[0.0-True]. 
-    - pytest -v -k "not (test_autodoc_type_aliases or test_ModuleAnalyzer_for_module or test_cython or test_duration_limit)"  # [py<314 and win]
+    # Skip timing based test on windows (CI): test_duration_limit[0.0-True].
+    - pytest -vv -k "not (test_autodoc_type_aliases or test_ModuleAnalyzer_for_module or test_cython or test_duration_limit)"  # [py<314 and win]
     # The test_is_invalid_builtin_class test checks if the builtin class is invalid:
     # AssertionError: assert dict_keys([('...th', 'Path')]) == {('_contextva...'Union'), ...}
     # The issue seems to be a full diff of the dict_keys objects
-    - pytest -v -k "not (test_autodoc_type_aliases or test_ModuleAnalyzer_for_module or test_autodoc_special_members or test_autosummary_generate_content_for_module_imported_members or test_is_invalid_builtin_class)"  # [py==314]
-  #downstreams:
+    - pytest -vv -k "not (test_autodoc_type_aliases or test_ModuleAnalyzer_for_module or test_autodoc_special_members or test_autosummary_generate_content_for_module_imported_members or test_is_invalid_builtin_class)"  # [py==314 and not win]
+    # test_cython stays skipped on win for the pyximport /IMPLIB: path bug described above.
+    - pytest -vv -k "not (test_autodoc_type_aliases or test_ModuleAnalyzer_for_module or test_autodoc_special_members or test_autosummary_generate_content_for_module_imported_members or test_is_invalid_builtin_class or test_cython or test_duration_limit)"  # [py==314 and win]
+  # downstreams:
   #  - sphinx-design
   #  - sphinx_rtd_theme
   #  - sphinxcontrib-images
