@@ -10,7 +10,7 @@ source:
   sha256: a4a7db75ed37531c05002d56ed6948d4c42f473a36f46e1382b0bd76ca9627bc
 
 build:
-  number: 1
+  number: 2
   skip: true  # [py<39]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
   entry_points:
@@ -78,6 +78,14 @@ requirements:
 {% set deselect_tests = deselect_tests + " --deselect=tests/test_extensions/test_ext_autodoc.py::test_cython" %}  # [win]
 # E   TypeError: ("Empty locale identifier value: None\n\nIf you didn't explicitly pass an empty value to a Babel function, this could be caused by there being no suitable locale environment variables for the API you tried to use.",)
 {% set deselect_tests = deselect_tests + " --deselect=tests/test_util/test_util_i18n.py::test_format_date" %}  # [win]
+# E   AssertionError: '.. py:function:: asctime([time_tuple]) -> string' != '.. py:function:: asctime([tuple]) -> string'
+# Newer CPython point releases renamed the documented `time.asctime` parameter from
+# `tuple` to `time_tuple`; autodoc renders the live docstring, and a python patch
+# level cannot be capped in the test env, so deselect instead.
+{% set deselect_tests = deselect_tests + " --deselect=tests/test_extensions/test_ext_autodoc_autofunction.py::test_cfunction" %}
+# E   assert '<div class="...&quot;Hello sphinx world&quot;...' == '<div class="..."Hello sphinx world"...'
+# Pygments 2.21 renders quotes literally in HTML output instead of escaping them.
+{% set deselect_tests = deselect_tests + " --deselect=tests/test_highlighting.py::test_default_highlight" %}
 
 test:
   imports:
